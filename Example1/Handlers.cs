@@ -22,17 +22,12 @@ namespace NorenRestSample
                 if (loginResp.emsg == "Invalid Input : Change Password" || loginResp.emsg == "Invalid Input : Password Expired")
                 {
                     //
-                    Changepwd changepwd = new Changepwd();
-                    changepwd.uid = Program.uid;
-                    changepwd.oldpwd = Program.pwd;
-                    changepwd.pwd = Program.newpwd;
-                    nApi.Changepwd(Handlers.OnResponseNOP, changepwd);
                     //this will change pwd. restart to relogin with new pwd
                     return;
                 }
                 else if (loginResp.emsg == "Invalid Input : Blocked")
                 {
-                    nApi.SendForgotPassword(Handlers.OnResponseNOP, Program.endPoint, Program.uid, Program.pan, Program.dob);
+                    
                 }
                 return;
             }
@@ -40,19 +35,12 @@ namespace NorenRestSample
             //we are logged in as stat is ok
 
             //subscribe to server for async messages            
-            nApi.ConnectWatcher(Program.wsendpoint, Handlers.OnFeed, Handlers.OnOrderUpdate);
+            //nApi.ConnectWatcher(Program.wsendpoint, Handlers.OnFeed, Handlers.OnOrderUpdate);
             //nApi.SubscribeOrders(Handlers.OnOrderUpdate, Program.uid);
             Program.loggedin = true;
 
-
-
             Program.ActionOptions();
             return;           
-        }
-        public static void OnUserDetailsResponse(NorenResponseMsg Response, bool ok)
-        {
-            UserDetailsResponse userDetailsResponse = Response as UserDetailsResponse;
-            Console.WriteLine(userDetailsResponse.toJson());
         }
         public static void OnResponseNOP(NorenResponseMsg Response, bool ok)
         {
@@ -87,22 +75,6 @@ namespace NorenRestSample
             }
             Console.WriteLine();
         }
-        public static void OnOrderHistoryResponse(NorenResponseMsg Response, bool ok)
-        {
-            OrderHistoryResponse orderhistory = Response as OrderHistoryResponse;
-
-            if (orderhistory.list != null)
-            {
-                DataView dv = orderhistory.dataView;
-
-                //    for (int i = 0; i < dv.Count; i++)
-                printDataView(dv);
-            }
-            else
-            {
-                Console.WriteLine("app handler: no orders");
-            }
-        }
         public static void OnTradeBookResponse(NorenResponseMsg Response, bool ok)
         {
             TradeBookResponse orderBook = Response as TradeBookResponse;
@@ -133,6 +105,22 @@ namespace NorenRestSample
             else
             {
                 Console.WriteLine("app handler: no orders");
+            }
+        }
+        public static void OnPositionsResponse(NorenResponseMsg Response, bool ok)
+        {
+            PositionBookResponse positions = Response as PositionBookResponse;
+
+            if (positions.positions != null)
+            {
+                DataView dv = positions.dataView;
+
+                //    for (int i = 0; i < dv.Count; i++)
+                printDataView(dv);
+            }
+            else
+            {
+                Console.WriteLine("app handler: no positions");
             }
         }
         public static void OnFeed(NorenFeed Feed)
