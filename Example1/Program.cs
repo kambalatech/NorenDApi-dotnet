@@ -84,6 +84,15 @@ namespace NorenRestSample
                         case "D":
                             ActionGetOptionChain();
                             break;
+                        case "E":
+                            DateTime tdy = DateTime.Now.Date;
+                            double end = ConvertToUnixTimestamp(tdy);
+                            DateTime sttdy = tdy.AddDays(-7);
+                            double begin = ConvertToUnixTimestamp(sttdy);
+                            //start and end time are optional
+                            //here we are getting one day's data
+                            nApi.SendGetEodChartData(Handlers.OnResponseNOP, "NSE", "RELIANCE-EQ", begin.ToString(), end.ToString());
+                            break;
                         case "G":
                             nApi.SendGetHoldings(Handlers.OnHoldingsResponse, actid, "C");
                             break;
@@ -387,6 +396,7 @@ namespace NorenRestSample
             Console.WriteLine("P: position convert");
             Console.WriteLine("U: get user details");
             Console.WriteLine("V: get intraday 1 min price data");
+            Console.WriteLine("E: get eod/daily price data");
             Console.WriteLine("I: get list of index names");
             Console.WriteLine("D: get Option Chain");
             Console.WriteLine("OP: get Option Greek");
