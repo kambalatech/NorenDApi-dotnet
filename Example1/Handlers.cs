@@ -54,6 +54,12 @@ namespace NorenRestSample
             UserDetailsResponse userDetailsResponse = Response as UserDetailsResponse;
             Console.WriteLine(userDetailsResponse.toJson());
         }
+        public static void OnGenerateOTPResponse(NorenResponseMsg Response, bool ok)
+        {
+            ForgotPasswordResponse resp = Response as ForgotPasswordResponse;
+            Console.WriteLine("app handler :" + resp.toJson());
+        }
+
         public static void OnResponseNOP(NorenResponseMsg Response, bool ok)
         {
             Console.WriteLine("app handler :" + Response.toJson());

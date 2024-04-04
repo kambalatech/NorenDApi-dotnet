@@ -15,11 +15,11 @@ namespace NorenRestSample
     {
         #region dev  credentials
 
-        public const string endPoint = "http://api.noren.com/NorenWClient/";
+        public const string endPoint = "https://kambala-uat.tradesmartonline.in/NorenWClientTP/";
         public const string wsendpoint = "wss://api.noren.com/NorenWSWeb/";
-        public const string uid = "";
+        public const string uid = "DARTTEST1";
         public const string actid = "";
-        public const string pwd = "";
+        public const string pwd = "Idarts@345";
         public const string factor2 = dob;
         public const string pan = "";
         public const string dob = "";
@@ -45,6 +45,11 @@ namespace NorenRestSample
         
         static void Main(string[] args)
         {
+            nApi.SendGenerateOtp(Handlers.OnGenerateOTPResponse, endPoint, uid, pwd);
+
+            var input2 = Console.ReadLine();
+            return;
+
             LoginMessage loginMessage = new LoginMessage();
             loginMessage.apkversion = "1.0.0";
             loginMessage.uid = uid;
