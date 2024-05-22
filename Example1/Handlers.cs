@@ -130,13 +130,16 @@ namespace NorenRestSample
             Console.WriteLine("Get Clients response receieved!!");
             accountItemResponse clients = Response as accountItemResponse;
 
-            if (clients != null && clients.values != null)
+            if (clients != null && clients.entities != null)
             {
-                List<accountItem> accountList = clients.values;
+                List<accountItem> accountList = clients.entities;
 
                 foreach (accountItem accItem in accountList)
                 {
-                    Console.WriteLine("Exchange : " + accItem.exch + " PCode : " + accItem.part_id);
+                    Console.WriteLine("Account: " + accItem.acct_id);
+
+                    foreach (accountExchList exchItem in accItem.exch_list)
+                        Console.WriteLine("Exchange : " + accItem.exch_list[0].exch + " PCode : " + accItem.exch_list[0].part_id);
                 }
                 //    for (int i = 0; i < dv.Count; i++)
                 //printDataView(dv);
