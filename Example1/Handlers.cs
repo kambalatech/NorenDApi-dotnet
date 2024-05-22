@@ -139,7 +139,7 @@ namespace NorenRestSample
                     Console.WriteLine("Account: " + accItem.acct_id);
 
                     foreach (accountExchList exchItem in accItem.exch_list)
-                        Console.WriteLine("Exchange : " + accItem.exch_list[0].exch + " PCode : " + accItem.exch_list[0].part_id);
+                        Console.WriteLine("Exchange : " + exchItem.exch + " PCode : " + exchItem.part_id);
                 }
                 //    for (int i = 0; i < dv.Count; i++)
                 //printDataView(dv);

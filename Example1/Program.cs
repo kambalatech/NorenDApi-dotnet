@@ -125,7 +125,7 @@ namespace NorenRestSample
                             nApi.SendGetOrderBook(Handlers.OnOrderBookResponse, "");
                             break;
                         case "P":
-                            //nApi.SendGetPositionBook(Handlers.OnPositionsResponse);
+                            nApi.SendGetDealerPositionBook(Handlers.OnPositionsResponse);
                             break;
                         case "S":
                             string exch;
