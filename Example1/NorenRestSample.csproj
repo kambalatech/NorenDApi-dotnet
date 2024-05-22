@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Deps\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NorenApiWrapper, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Deps\NorenApiWrapper.dll</HintPath>

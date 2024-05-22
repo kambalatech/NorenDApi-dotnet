@@ -123,6 +123,30 @@ namespace NorenRestSample
                 Console.WriteLine("app handler: no positions");
             }
         }
+
+
+        public static void OnGetAllClients(NorenResponseMsg Response, bool ok)
+        {
+            Console.WriteLine("Get Clients response receieved!!");
+            accountItemResponse clients = Response as accountItemResponse;
+
+            if (clients != null && clients.values != null)
+            {
+                List<accountItem> accountList = clients.values;
+
+                foreach (accountItem accItem in accountList)
+                {
+                    Console.WriteLine("Exchange : " + accItem.exch + " PCode : " + accItem.part_id);
+                }
+                //    for (int i = 0; i < dv.Count; i++)
+                //printDataView(dv);
+            }
+            else
+            {
+                Console.WriteLine("app handler: no clients");
+            }
+        }
+
         public static void OnFeed(NorenFeed Feed)
         {
             NorenFeed feedmsg = Feed as NorenFeed;
