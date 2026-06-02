@@ -96,7 +96,7 @@ namespace NorenRestSample
             
             loginMessage.imei = imei;
             loginMessage.vc = vc;
-            loginMessage.source = "API";
+            loginMessage.source = "DAPI";
             loginMessage.appkey = appkey;
             nApi.SendLogin(Handlers.OnAppLoginResponse, endPoint, loginMessage);
 
@@ -120,6 +120,11 @@ namespace NorenRestSample
                     {
                         case "B":
                             ActionPlaceBuyorder();
+                            break;
+                        case "MO":
+                            Console.WriteLine("Enter Modify OrderNo:");
+                            string orderno = Console.ReadLine();
+                            ActionModifyorder(orderno);
                             break;
                         case "O":
                             nApi.SendGetOrderBook(Handlers.OnOrderBookResponse, "");
@@ -195,10 +200,29 @@ namespace NorenRestSample
             order.ret = "DAY";
             order.ordersource = "API";
 
-            nApi.SendPlaceOrder(Handlers.OnResponseNOP, order);
+            nApi.SendPlaceOrder(Handlers.OnResponseNOP, order);            
         }
 
-       
+
+        public static void ActionModifyorder(string orderno)
+        {
+            //sample cover order
+            ModifyOrder order = new ModifyOrder();
+            order.uid = uid;
+            order.actid=actid;
+            order.norenordno = orderno;
+            //order.actid = actid;
+            order.exch = "NSE";
+            order.tsym = "M&M-EQ";
+            order.qty = "10";
+            order.prc = "100.0";
+
+            order.prctyp = "LMT";
+            order.ret = "DAY";
+
+            nApi.SendModifyOrder(Handlers.OnResponseNOP, order);
+        }
+
         public static void ActionOptions()
         {
             Console.WriteLine("Q: logout.");
@@ -206,6 +230,7 @@ namespace NorenRestSample
             Console.WriteLine("T: get TradeBook");
             Console.WriteLine("P: get Positions");
             Console.WriteLine("B: place a buy order");
+            Console.WriteLine("MO: Modify order");
             Console.WriteLine("S: get security info");
             Console.WriteLine("C: get Clients");
         }
